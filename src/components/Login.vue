@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import api from '../services/apiClient';
+
 export default {
   data() {
     return {
@@ -22,13 +24,13 @@ export default {
   methods: {
     async login() {
       try {
-        await this.$auth.login({
-          data: {
-            email: this.email,
-            password: this.password
-          }
+        const response = await api.post('/auth/login', {
+          email: this.email,
+          password: this.password
         });
-
+        
+        localStorage.setItem('token', response.data.token);
+        
         this.$router.push('/');
       } catch (error) {
         alert('Credenciales inválidas');
