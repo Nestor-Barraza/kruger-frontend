@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DashboardComponent from "./components/DashboardComponent.vue";
 import LoginComponent from "./components/LoginComponent.vue";
-import Register from "./components/Register.vue";
 
 const routes = [
   {
@@ -16,14 +15,6 @@ const routes = [
     path: "/login",
     name: "Login",
     component: LoginComponent,
-    meta: {
-      guest: true,
-    },
-  },
-  {
-    path: "/register",
-    name: "Register",
-    component: Register,
     meta: {
       guest: true,
     },

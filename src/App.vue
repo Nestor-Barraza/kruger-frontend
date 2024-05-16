@@ -2,6 +2,7 @@
   <v-app>
     <v-main>
       <div class="div-blur">
+        <TopBar v-if="isAuthenticated"/>
         <router-view></router-view>
         <StarAnimation/>
       </div>
@@ -11,15 +12,17 @@
 
 <script>
 import StarAnimation from './components/StarAnimation.vue';
-
+import TopBar from './components/TopBar.vue';
+import { mapState } from 'vuex';
 export default {
   name: 'App',
   components: {
-    StarAnimation
+    StarAnimation,
+    TopBar
   },
-  data: () => ({
-    // ...
-  }),
+  computed: {
+      ...mapState(['isAuthenticated'])
+  }
 }
 </script>
 
