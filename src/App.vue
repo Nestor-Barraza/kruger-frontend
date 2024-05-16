@@ -1,37 +1,38 @@
 <template>
   <v-app>
     <v-main>
-        <div class="div-blur">
-      <LoginComponent/>
+      <div class="div-blur">
+        <router-view></router-view>
+        <StarAnimation/>
       </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import LoginComponent from './components/LoginComponent.vue'
+import StarAnimation from './components/StarAnimation.vue';
 
 export default {
   name: 'App',
-
   components: {
-    LoginComponent,
+    StarAnimation
   },
-
   data: () => ({
-    //
+    // ...
   }),
 }
 </script>
+
 <style>
-.v-main{
+.v-main {
   background: url('https://r4.wallpaperflare.com/wallpaper/561/315/641/blueprint-kerbal-program-rocket-wallpaper-8866bc0a3fdc97d9ced069e252998ba0.jpg');
   background-size: cover;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
 }
-.div-blur{
+
+.div-blur {
   position: absolute;
   top: 0;
   left: 0;
@@ -40,5 +41,4 @@ export default {
   height: 100%;
   background: #34495eba;
 }
-
 </style>

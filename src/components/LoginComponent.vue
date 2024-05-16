@@ -27,6 +27,7 @@
 <script>
 import api from '../services/apiClient';
 
+
 export default {
   data() {
     return {
