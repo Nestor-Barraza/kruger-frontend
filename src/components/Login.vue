@@ -1,14 +1,35 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div>
-    <h2>Login</h2>
-    <form @submit.prevent="login">
-      <input type="email" v-model="email" placeholder="Email" required>
-      <input type="password" v-model="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <router-link to="/register">Register</router-link></p>
-  </div>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="12" sm="8" md="6">
+        <v-card>
+          <v-card-title class="headline">Login</v-card-title>
+          <v-card-text>
+            <v-form @submit.prevent="login">
+              <v-text-field
+                v-model="email"
+                label="Email"
+                type="email"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="password"
+                label="Password"
+                type="password"
+                required
+              ></v-text-field>
+              <v-btn type="submit" color="primary" block>Login</v-btn>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text to="/register">Register</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -19,7 +40,7 @@ export default {
     return {
       email: '',
       password: ''
-    }
+    };
   },
   methods: {
     async login() {
@@ -28,14 +49,11 @@ export default {
           email: this.email,
           password: this.password
         });
-        
         localStorage.setItem('token', response.data.token);
-        
-        this.$router.push('/');
       } catch (error) {
-        alert('Credenciales inválidas');
+        console.log({ error });
       }
     }
   }
-}
+};
 </script>
