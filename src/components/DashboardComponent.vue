@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/valid-v-slot -->
 <template>
   <v-container>
     <v-row>
@@ -11,51 +12,60 @@
             v-if="!loading"
             :headers="headers"
             :items="users"
-            :search="search"
-            :footer-props="{
-              'items-per-page-options': [10, 20, 50, 100]
-            }"
+            :footer-props="{ 'items-per-page-options': [10, 20, 50, 100] }"
           >
+            <template v-slot:item.actions="{ item }">
+
+    <v-btn color="primary" @click="openEditModal(item.IDNumber)">
+      <v-icon left>mdi-pencil</v-icon>
+    </v-btn>
+
+            </template>
+         
           </v-data-table>
-          <v-progress-linear
-            v-else
-            indeterminate
-            color="primary"
-          ></v-progress-linear>
+          <v-progress-linear v-else indeterminate color="primary"></v-progress-linear>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
+    <ModalComponent />
 </template>
+
 <script>
 import api from '../services/apiClient';
-
+import { mapActions } from 'vuex';
+import ModalComponent from './ModalComponent.vue';
 export default {
   name: 'UserList',
+   components: {
+    ModalComponent,
+  },
   data: () => ({
     headers: [
+      { title: 'ID Number', key: 'IDNumber' },
       { title: 'Username', key: 'username' },
       { title: 'Role', key: 'role' },
-      { title: 'ID Number', key: 'IDNumber' },
       { title: 'First Name', key: 'firstName' },
       { title: 'Last Name', key: 'lastName' },
-      { title: 'Email', key: 'email' },
-      { title: 'Date of Birth', key: 'dateOfBirth' },
-      { title: 'Home Address', key: 'homeAddress' },
-      { title: 'Mobile Phone', key: 'mobilePhone' },
       { title: 'Vaccination Status', key: 'vaccinationStatus' },
       { title: 'Vaccine Type', key: 'vaccineType' },
       { title: 'Vaccination Date', key: 'vaccinationDate' },
       { title: 'Number of Doses', key: 'numberOfDoses' },
+      { title: 'Actions', key: 'actions', sortable: false },
     ],
     users: [],
     loading: true,
   }),
   methods: {
+     ...mapActions(['openEditModal']),
     formatDate(date) {
       if (!date) return '';
       const options = { month: 'numeric', day: 'numeric', year: 'numeric' };
       return new Date(date).toLocaleDateString('en-US', options);
+    },
+   openEditModal(IDNumber) {
+      console.log('Opening edit modal for user with IDNumber:', IDNumber);
+      this.$store.dispatch('openEditModal', IDNumber);
     },
   },
   async mounted() {
@@ -69,3 +79,8 @@ export default {
   },
 };
 </script>
+<style>
+.btn-row{
+  flex-wrap: nowrap;
+}
+</style>
