@@ -37,7 +37,6 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-text-field
-                label="Vaccination Date"
                 :value="formattedVaccinationDate"
                 prepend-icon="mdi-calendar"
                 readonly
