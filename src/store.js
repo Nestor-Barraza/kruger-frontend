@@ -16,5 +16,13 @@ export default createStore({
     logout({ commit }) {
       commit("setAuthentication", false);
     },
+    checkAuthentication({ commit }) {
+      const token = localStorage.getItem("vue-auth-token");
+      if (token) {
+        commit("setAuthentication", true);
+      } else {
+        commit("setAuthentication", false);
+      }
+    },
   },
 });

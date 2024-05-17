@@ -11,7 +11,7 @@
       ></v-text-field>
       <v-text-field
         v-model="password"
-        :type="showPassword ? 'text' : 'password'"
+        :type="'password'"
         label="Password"
         placeholder="Password"
         required
