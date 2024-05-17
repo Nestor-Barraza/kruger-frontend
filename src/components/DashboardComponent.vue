@@ -8,21 +8,21 @@
             <h2 class="headline font-weight-bold mb-0">Users</h2>
             <v-spacer></v-spacer>
           </v-card-title>
-          <v-data-table
-            v-if="!loading"
-            :headers="headers"
-            :items="users"
-            :footer-props="{ 'items-per-page-options': [10, 20, 50, 100] }"
-          >
-            <template v-slot:item.actions="{ item }">
-
-    <v-btn color="primary" @click="openEditModal(item.IDNumber)">
-      <v-icon left>mdi-pencil</v-icon>
-    </v-btn>
-
-            </template>
-         
-          </v-data-table>
+         <v-data-table
+    v-if="!loading"
+    :headers="headers"
+    :items="users"
+    :footer-props="{ 'items-per-page-options': [10, 20, 50, 100] }"
+  >
+    <template v-slot:item.vaccinationDate="{ item }">
+      {{ formatDate(item.vaccinationDate) }}
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <v-btn color="primary" @click="openEditModal(item.IDNumber)">
+        <v-icon left>mdi-pencil</v-icon>
+      </v-btn>
+    </template>
+  </v-data-table>
           <v-progress-linear v-else indeterminate color="primary"></v-progress-linear>
         </v-card>
       </v-col>
@@ -60,8 +60,11 @@ export default {
      ...mapActions(['openEditModal']),
     formatDate(date) {
       if (!date) return '';
-      const options = { month: 'numeric', day: 'numeric', year: 'numeric' };
-      return new Date(date).toLocaleDateString('en-US', options);
+      const dateParts = date.split('T')[0].split('-');
+      const year = dateParts[0];
+      const month = dateParts[1];
+      const day = dateParts[2];
+      return `${month}/${day}/${year}`;
     },
    openEditModal(IDNumber) {
       console.log('Opening edit modal for user with IDNumber:', IDNumber);
