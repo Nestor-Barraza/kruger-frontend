@@ -43,5 +43,6 @@ export default {
   bottom: 0;
   height: 100%;
   background: #34495eba;
+  padding-top: 7em;
 }
 </style>

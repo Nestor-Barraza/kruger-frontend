@@ -46,8 +46,7 @@ export default {
           email: this.email,
           password: this.password,
         });
-        localStorage.setItem('vue-auth-token', response.data.token);
-         this.$store.dispatch('login');
+         this.$store.dispatch('login', response.data.token);
          this.$router.push('/');
       } catch (error) {
         console.log({ error });
